@@ -1,5 +1,4 @@
 export interface RaceChartData {
-    delay: number;
     frames: Frame[];
 }
 
