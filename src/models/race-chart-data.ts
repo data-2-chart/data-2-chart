@@ -11,5 +11,4 @@ export interface Frame {
 export interface FrameData {
     name: string;
     value: number;
-    rank: number;
 }

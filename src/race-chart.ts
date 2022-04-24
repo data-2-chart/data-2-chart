@@ -16,6 +16,18 @@ export abstract class RaceChart extends LitElement {
     @property({ type: Number })
     duration = 250;
 
+    @property({ type: Number, attribute: 'margin-top' })
+    marginTop = 10;
+
+    @property({ type: Number, attribute: 'margin-right' })
+    marginRight = 10;
+
+    @property({ type: Number, attribute: 'margin-bottom' })
+    marginBottom = 10;
+
+    @property({ type: Number, attribute: 'margin-left' })
+    marginLeft = 10;
+
     @query('#race-chart')
     private _svgElement!: SVGElement;
 
@@ -31,12 +43,12 @@ export abstract class RaceChart extends LitElement {
         this.svg = select(this._svgElement);
     }
 
-    override disconnectedCallback() {
+    override disconnectedCallback(): void {
         super.disconnectedCallback();
         clearInterval(this._timerInterval);
     }
 
-    private _startChart() {
+    private _startChart(): void {
         if (this._firstUpdated === true) {
             this._renderChart();
         } else {
@@ -44,10 +56,9 @@ export abstract class RaceChart extends LitElement {
         }
     }
 
-    private _renderChart() {
+    private _renderChart(): void {
         let currentFrame = 0;
         this.domRect = this.getBoundingClientRect();
-        console.log('this = ', this.getBoundingClientRect());
         this.displayChart(this.data);
         this.updateFrame(this.data.frames[currentFrame]);
         this._timerInterval = setInterval(() => {
@@ -60,6 +71,6 @@ export abstract class RaceChart extends LitElement {
     protected abstract updateFrame(frame: Frame): void;
 
     override render() {
-        return html`<svg id="race-chart"></svg>`;
+        return html`<svg id='race-chart'></svg>`;
     }
 }
