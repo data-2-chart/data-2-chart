@@ -1,7 +1,9 @@
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { RaceChartData, Frame } from './models/race-chart-data';
-import { select } from 'd3';
+import { ColorSchemas } from './models/color-schemas';
+import { select, ScaleOrdinal, scaleOrdinal } from 'd3';
+import { ColorSchemasMap } from './models/color-schemas';
 
 export abstract class RaceChart extends LitElement {
     private _data!: RaceChartData;
@@ -9,6 +11,10 @@ export abstract class RaceChart extends LitElement {
     private _timerInterval!: ReturnType<typeof setInterval>;
     protected svg!: d3.Selection<SVGElement, unknown, null, undefined>;
     protected domRect!: DOMRect;
+    protected _color!: ScaleOrdinal<string, string, never>;
+
+    @property({ type: Number })
+    maxDataPoints = 12;
 
     @property({ attribute: 'data', type: Object })
     get data() { return this._data; }
@@ -27,6 +33,9 @@ export abstract class RaceChart extends LitElement {
 
     @property({ type: Number, attribute: 'margin-left' })
     marginLeft = 10;
+
+    @property({ type: String })
+    colorSchema = ColorSchemas.schemeTableau10;
 
     @query('#race-chart')
     private _svgElement!: SVGElement;
@@ -59,10 +68,11 @@ export abstract class RaceChart extends LitElement {
     private _renderChart(): void {
         let currentFrame = 0;
         this.domRect = this.getBoundingClientRect();
+        this._color = scaleOrdinal(ColorSchemasMap[this.colorSchema]);
         this.displayChart(this.data);
         this.updateFrame(this.data.frames[currentFrame]);
         this._timerInterval = setInterval(() => {
-            currentFrame >= this.data.frames.length ? currentFrame = 0 : currentFrame++;
+            currentFrame < this.data.frames.length ? currentFrame++ : currentFrame = 0;
             this.updateFrame(this.data.frames[currentFrame]);
         }, this.duration);
     }

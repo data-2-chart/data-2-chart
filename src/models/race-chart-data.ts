@@ -12,3 +12,13 @@ export interface FrameData {
     name: string;
     value: number;
 }
+
+export interface ArcData {
+    name: string;
+    startAngle: number;
+    endAngle: number;
+    value: number;
+    x: number;
+    y: number;
+    noChange: boolean;
+}

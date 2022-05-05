@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Race Bubble Chart</title>
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../node_modules/lit/polyfill-support.js"></script>
+  <script type="module" src="../dist/race-bubble-chart.js"></script>
+  <script>
+    fetch("./data/top-global-brands.json")
+      .then(response => response.json())
+      .then(topGlobalBrands => {
+        document.getElementById('race-bubble-chart').setAttribute("data", JSON.stringify(topGlobalBrands));
+      });
+  </script>
+</head>
+
+<body>
+  <race-bubble-chart id="race-bubble-chart" style="display: block; width: 100%; height: 500px; border: 1px solid blue;"
+    duration="250" colorSchema="schemeTableau10">
+  </race-bubble-chart>
+</body>
+
+</html>
