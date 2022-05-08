@@ -34,6 +34,9 @@ export abstract class RaceChart extends LitElement {
     @property({ type: Number, attribute: 'margin-left' })
     marginLeft = 10;
 
+    @property({ type: Number, attribute: 'margin-left' })
+    labelFont = 'bold 0.6em sans-serif';
+
     @property({ type: String })
     colorSchema = ColorSchemas.schemeTableau10;
 

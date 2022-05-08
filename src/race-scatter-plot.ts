@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 import { RaceChart } from './race-chart';
 import { Frame, FrameData, ArcData } from './models/race-chart-data';
-import { select, sum, randomNormal, easeLinear, range, Selection, min, axisTop, arc } from 'd3';
+import { sum, randomNormal, easeLinear, Selection, min, arc } from 'd3';
 
 interface CircleData {
   x: number;
@@ -14,11 +14,11 @@ interface CircleData {
 export class RaceScatterPlot extends RaceChart {
   private _totalCircles = 500;
   private _circlesSize = 2;
-  private _arcGenerator!: any;
   private _circleData: CircleData[] = [];
   private _arcData!: ArcData[];
   private _circles!: Selection<SVGGElement, any, SVGGElement, undefined>;
   private _labels!: Selection<SVGTextElement, ArcData, SVGGElement, unknown>;
+  private _ticker!: Selection<SVGTextElement, unknown, null, undefined>;
   isFirstFrame = true;
 
   override displayChart() {
@@ -28,15 +28,34 @@ export class RaceScatterPlot extends RaceChart {
       .attr('viewBox', [0, 0, this.domRect.width, this.domRect.height]);
     this._labels = this.svg.append('g').attr('transform', `translate(${this.domRect.width / 2},${this.domRect.height / 2})`).selectAll('text');
     this._circles = this.svg.append('g').attr('transform', `translate(${this.domRect.width / 2},${this.domRect.height / 2})`).selectAll('circle');
+    this._ticker = this.svg.append("text")
+      .style("font", `bold 1.8em sans-serif`)
+      .attr("x", this.domRect.width * .55)
+      .attr("y", this.domRect.height * .95)
+      .text('');
+
     const radius = ((min([this.domRect.height, this.domRect.width]) || 100) / 2);
-    this._arcGenerator = arc().innerRadius(radius * .70).outerRadius(radius * .98);
+    const _arcGenerator: any = arc().innerRadius(radius * .75).outerRadius(radius * .76);
+    const _arcGeneratorLabel: any = arc().innerRadius(radius * .90).outerRadius(radius * .91);
 
     //generate default _arcData
     const angleDiff = (2 * Math.PI) / this.maxDataPoints;
     let currentAngle = 0;
     this._arcData = Array.from({ length: this.maxDataPoints }, () => {
-      const centroid = this._arcGenerator.centroid({ startAngle: currentAngle, endAngle: currentAngle + angleDiff });
-      const mappedData: ArcData = { name: '', value: 0, startAngle: currentAngle, endAngle: currentAngle + angleDiff, x: centroid[0], y: centroid[1], noChange: false };
+      const centroid = _arcGenerator.centroid({ startAngle: currentAngle, endAngle: currentAngle + angleDiff });
+      const centroidLabel = _arcGeneratorLabel.centroid({ startAngle: currentAngle, endAngle: currentAngle + angleDiff });
+
+      const mappedData: ArcData = {
+        name: '',
+        value: 0,
+        startAngle: currentAngle,
+        endAngle: currentAngle + angleDiff,
+        x: centroid[0],
+        y: centroid[1],
+        xLabel: centroidLabel[0],
+        yLabel: centroidLabel[1],
+        noChange: false
+      };
       currentAngle += angleDiff;
       return mappedData;
     });
@@ -53,8 +72,13 @@ export class RaceScatterPlot extends RaceChart {
       this._updateLabels(transition);
       this._updateCircleData();
       this._updateCircles(transition);
+      this._updateTicker(frame);
       this.isFirstFrame = false;
     }
+  }
+
+  private _updateTicker(frame: Frame) {
+    this._ticker.text(frame.name);
   }
 
   private _updateCircleData() {
@@ -108,11 +132,21 @@ export class RaceScatterPlot extends RaceChart {
     dataPoints.forEach(dataPoint => {
       const currentArc = this._arcData.find(arcObj => arcObj.name == dataPoint.name);
       if (!currentArc) {
-        let freeObj = this._arcData.find(arcObj => arcObj.noChange !== true);
-        if (freeObj) {
-          freeObj.name = dataPoint.name;
-          freeObj.value = dataPoint.value;
-          freeObj.noChange = true;
+        let freeIndex = this._arcData.findIndex(arcObj => arcObj.noChange !== true);
+        if (freeIndex != -1) {
+          const freeObj = this._arcData[freeIndex];
+          const newObj = {
+            name: dataPoint.name,
+            startAngle: freeObj.startAngle,
+            endAngle: freeObj.endAngle,
+            value: dataPoint.value,
+            x: freeObj.x,
+            y: freeObj.y,
+            xLabel: freeObj.xLabel,
+            yLabel: freeObj.yLabel,
+            noChange: true
+          };
+          this._arcData.splice(freeIndex, 1, newObj);
         }
       }
     });
@@ -125,20 +159,18 @@ export class RaceScatterPlot extends RaceChart {
   }
 
   private _updateCircles(transition: any) {
-    const random = randomNormal(1000, this.duration < 2000 ? 2000 : this.duration);
-
     this._circles = this._circles.data(this._circleData)
       .join(
         enter => enter.append('circle')
-          .attr("cx", d => d.x)
-          .attr("cy", d => d.y)
+          .attr("cx", 0)
+          .attr("cy", 0)
           .attr("r", this._circlesSize)
           .attr("fill", d => this._color(d.name)),
         update => update,
         exit => exit.transition(transition).remove(),
       )
       .call(circles => circles.transition(transition)
-        // .delay((_, i) => random())
+        .delay(_ => Math.random() * this.duration)
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
         .attr("r", this._circlesSize)
@@ -149,17 +181,19 @@ export class RaceScatterPlot extends RaceChart {
     this._labels = this._labels.data(this._arcData)
       .join(
         enter => enter.append('text')
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
+          .attr("x", 0)
+          .attr("y", 0)
+          .style('font', this.labelFont)
           .text(d => d.name),
         update => update,
         exit => exit.remove().transition(transition),
       )
       .call(text => {
         text.transition(transition)
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
-          .attr("font-weight", "normal")
+          .attr("x", d => d.xLabel)
+          .attr("y", d => d.yLabel)
+          .style('font', this.labelFont)
+          .attr("text-anchor", d => d.x < (this.domRect.width / 2) ? "end" : "start")
           .text(d => d.name)
       });
   }

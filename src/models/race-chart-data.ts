@@ -20,5 +20,7 @@ export interface ArcData {
     value: number;
     x: number;
     y: number;
+    xLabel: number;
+    yLabel: number;
     noChange: boolean;
 }
