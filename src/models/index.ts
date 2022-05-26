@@ -1,1 +1,1 @@
-export { RaceChartData } from './race-chart-data.js';
+export { RaceChartData, Frame, FrameData } from './race-chart-data.js';

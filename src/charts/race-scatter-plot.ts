@@ -1,6 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 import { RaceChart } from './race-chart.js';
-import { Frame, FrameData, ArcData } from '../models/race-chart-data.js';
+import { Frame, FrameData } from '../models/race-chart-data.js';
+import { ArcData } from '../models/arc-data.js';
 import { sum, randomNormal, easeLinear, Selection, min, arc } from 'd3';
 
 interface CircleData {
@@ -183,7 +184,7 @@ export class RaceScatterPlot extends RaceChart {
         enter => enter.append('text')
           .attr("x", 0)
           .attr("y", 0)
-          .style('font', this.labelFont)
+          .style('font', 'bold 0.6em sans-serif')
           .text(d => d.name),
         update => update,
         exit => exit.remove().transition(transition),
@@ -192,7 +193,7 @@ export class RaceScatterPlot extends RaceChart {
         text.transition(transition)
           .attr("x", d => d.xLabel)
           .attr("y", d => d.yLabel)
-          .style('font', this.labelFont)
+          .style('font', 'bold 0.6em sans-serif')
           .attr("text-anchor", d => d.x < (this.domRect.width / 2) ? "end" : "start")
           .text(d => d.name)
       });

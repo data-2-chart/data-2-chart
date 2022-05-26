@@ -3,14 +3,14 @@
   "private": false,
   "version": "0.0.1",
   "description": "Advanced web component chart library",
-  "main": "index.js",
-  "module": "index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "type": "module",
-  "types": "index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "build:watch": "tsc --watch",
-    "clean": "rimraf dist",
+    "clean": "rimraf lib",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint:lit-analyzer": "lit-analyzer",
@@ -91,5 +91,6 @@
   "bugs": {
     "url": "https://github.com/data-2-chart/data-2-chart/issues"
   },
-  "homepage": "https://github.com/data-2-chart/data-2-chart#readme"
+  "homepage": "https://github.com/data-2-chart/data-2-chart#readme",
+  "files": ["lib"]
 }

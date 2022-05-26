@@ -12,14 +12,14 @@ export class RaceBarChart extends RaceChart {
   private _ticker!: Selection<SVGTextElement, unknown, null, undefined>;
   private _axis!: any;
   private _barSize = 12;
-  private _tickFormat: any;
+  private marginTop = 10;
 
   override displayChart() {
     this.svg
       .attr('width', this.domRect.width)
       .attr('height', this.domRect.height)
       .attr('viewBox', [0, 0, this.domRect.width, this.domRect.height]);
-    this._xScale = scaleLinear([0, 1], [this.marginLeft, this.domRect.width - this.marginRight]);
+    this._xScale = scaleLinear([0, 1], [0, this.domRect.width]);
     this._barSize = (this.domRect.height / this.maxDataPoints) - (0.1 * this.maxDataPoints);
     this._yScale = scaleBand()
       .domain(range(this.maxDataPoints + 1) as Iterable<string>)
@@ -109,7 +109,7 @@ export class RaceBarChart extends RaceChart {
     const axisG = this.svg.append('g')
       .attr('transform', `translate(0,${this.marginTop})`);
     const axis = axisTop(this._xScale)
-      .ticks(this.domRect.width / 160, this._tickFormat)
+      .ticks(this.domRect.width / 160)
       .tickSizeOuter(0)
       .tickSizeInner(-this._barSize * (this.maxDataPoints + this._yScale.padding()));
 

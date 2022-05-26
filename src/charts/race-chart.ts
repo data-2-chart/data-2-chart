@@ -22,21 +22,6 @@ export abstract class RaceChart extends LitElement {
     @property({ type: Number })
     duration = 250;
 
-    @property({ type: Number, attribute: 'margin-top' })
-    marginTop = 10;
-
-    @property({ type: Number, attribute: 'margin-right' })
-    marginRight = 10;
-
-    @property({ type: Number, attribute: 'margin-bottom' })
-    marginBottom = 10;
-
-    @property({ type: Number, attribute: 'margin-left' })
-    marginLeft = 10;
-
-    @property({ type: Number, attribute: 'margin-left' })
-    labelFont = 'bold 0.6em sans-serif';
-
     @property({ type: String })
     colorSchema = ColorSchemas.schemeTableau10;
 
