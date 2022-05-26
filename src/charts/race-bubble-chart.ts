@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
-import { RaceChart } from './race-chart';
-import { Frame, FrameData } from './models/race-chart-data';
+import { RaceChart } from './race-chart.js';
+import { Frame, FrameData } from '../models/race-chart-data.js';
 import { pack, hierarchy, Selection, HierarchyCircularNode, easeLinear } from 'd3';
 
 @customElement('race-bubble-chart')

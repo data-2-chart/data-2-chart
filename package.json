@@ -1,15 +1,16 @@
 {
-  "name": "@lit/lit-starter-ts",
-  "private": true,
-  "version": "1.0.2",
-  "description": "A simple web component",
-  "main": "my-element.js",
-  "module": "my-element.js",
+  "name": "@data-2-chart/data-2-chart",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Advanced web component chart library",
+  "main": "index.js",
+  "module": "index.js",
   "type": "module",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "clean": "rimraf my-element.{d.ts,d.ts.map,js,js.map} test/my-element.{d.ts,d.ts.map,js,js.map} test/my-element_test.{d.ts,d.ts.map,js,js.map}",
+    "clean": "rimraf dist",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.ts'",
     "lint:lit-analyzer": "lit-analyzer",
@@ -18,7 +19,7 @@
     "docs:clean": "rimraf docs",
     "docs:gen": "eleventy --config=.eleventy.cjs",
     "docs:gen:watch": "eleventy --config=.eleventy.cjs --watch",
-    "docs:build": "rollup -c --file docs/my-element.bundled.js",
+    "docs:build": "rollup -c --file docs/data-2-chart.bundled.js",
     "docs:assets": "cp node_modules/prismjs/themes/prism-okaidia.css docs/",
     "docs:serve": "wds --root-dir=docs --node-resolve --watch",
     "analyze": "cem analyze --litelement --globs \"src/**/*.ts\"",
@@ -30,16 +31,20 @@
     "test:watch": "wtr --watch",
     "test:prod": "MODE=prod wtr",
     "test:prod:watch": "MODE=prod wtr --watch",
-    "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js"
+    "checksize": "rollup -c ; cat data-2-chart.bundled.js | gzip -9 | wc -c ; rm data-2-chart.bundled.js"
   },
   "keywords": [
     "web-components",
-    "lit-element",
+    "charts",
+    "graphs",
     "typescript",
-    "lit"
+    "visualization",
+    "data visualization",
+    "information visualization",
+    "Data and information visualization"
   ],
-  "author": "Google LLC",
-  "license": "BSD-3-Clause",
+  "author": "Sathya Vikram Chekuri",
+  "license": "MIT",
   "dependencies": {
     "d3": "^7.4.0",
     "lit": "^2.1.0"
@@ -75,5 +80,16 @@
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.3.5"
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/data-2-chart/data-2-chart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/data-2-chart/data-2-chart/issues"
+  },
+  "homepage": "https://github.com/data-2-chart/data-2-chart#readme"
 }

@@ -1,9 +1,9 @@
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import { RaceChartData, Frame } from './models/race-chart-data';
-import { ColorSchemas } from './models/color-schemas';
+import { RaceChartData, Frame } from '../models/race-chart-data.js';
+import { ColorSchemas } from '../models/color-schemas.js';
 import { select, ScaleOrdinal, scaleOrdinal } from 'd3';
-import { ColorSchemasMap } from './models/color-schemas';
+import { ColorSchemasMap } from '../models/color-schemas.js';
 
 export abstract class RaceChart extends LitElement {
     private _data!: RaceChartData;

@@ -1,5 +1,5 @@
-# data-exploration
-data-exploration
+# Data2Chart
+Data2Chart
 
 ## Setup
 

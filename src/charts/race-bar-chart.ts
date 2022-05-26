@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
-import { RaceChart } from './race-chart';
-import { Frame, FrameData } from './models/race-chart-data';
+import { RaceChart } from './race-chart.js';
+import { Frame, FrameData } from '../models/race-chart-data.js';
 import { scaleLinear, ScaleLinear, scaleBand, ScaleBand, range, Selection, easeLinear, axisTop, format } from 'd3';
 
 @customElement('race-bar-chart')

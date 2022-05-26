@@ -1,6 +1,6 @@
 import { customElement } from 'lit/decorators.js';
-import { RaceChart } from './race-chart';
-import { Frame, FrameData, ArcData } from './models/race-chart-data';
+import { RaceChart } from './race-chart.js';
+import { Frame, FrameData, ArcData } from '../models/race-chart-data.js';
 import { sum, randomNormal, easeLinear, Selection, min, arc } from 'd3';
 
 interface CircleData {
