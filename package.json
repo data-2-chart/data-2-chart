@@ -49,6 +49,9 @@
     "d3": "^7.4.0",
     "lit": "^2.1.0"
   },
+  "peerDependencies": {
+    "@types/d3": "^7.1.0"
+  },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
@@ -92,5 +95,7 @@
     "url": "https://github.com/data-2-chart/data-2-chart/issues"
   },
   "homepage": "https://github.com/data-2-chart/data-2-chart#readme",
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ]
 }
