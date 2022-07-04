@@ -1,14 +1,14 @@
 import { customElement } from 'lit/decorators.js';
 import { RaceChart } from './race-chart.js';
-import { Frame, FrameData } from '../models/race-chart-data.js';
+import { Frame, FrameData } from '@data-2-chart/data-2-chart-common-ts';
 import { scaleLinear, ScaleLinear, scaleBand, ScaleBand, range, Selection, easeLinear, axisTop, format } from 'd3';
 
 @customElement('race-bar-chart')
 export class RaceBarChart extends RaceChart {
   private _xScale!: ScaleLinear<number, number, never>;
   private _yScale!: ScaleBand<string>;
-  private _bar!: Selection<SVGRectElement, FrameData, SVGGElement, unknown>;
-  private _label!: Selection<SVGGElement, FrameData, SVGGElement, unknown>;
+  private _bar!: Selection<SVGRectElement, FrameData<number>, SVGGElement, unknown>;
+  private _label!: Selection<SVGGElement, FrameData<number>, SVGGElement, unknown>;
   private _ticker!: Selection<SVGTextElement, unknown, null, undefined>;
   private _axis!: any;
   private _barSize = 12;
@@ -43,13 +43,13 @@ export class RaceBarChart extends RaceChart {
       .text('');
   }
 
-  override updateFrame(frame: Frame) {
-    if (frame?.data?.length > 0) {
+  override updateFrame(frame: Frame<number>) {
+    if (frame?.frameData?.length > 0) {
       const transition = this.svg.transition()
         .duration(this.duration)
         .ease(easeLinear);
-      frame.data.sort((data1, data2) => data2?.value - data1?.value);
-      this._xScale.domain([0, frame.data[0].value]);
+      frame.frameData.sort((data1, data2) => data2?.value - data1?.value);
+      this._xScale.domain([0, frame.frameData[0].value]);
 
       this._updateBars(frame, transition);
       this._updateLabels(frame, transition);
@@ -58,12 +58,12 @@ export class RaceBarChart extends RaceChart {
     }
   }
 
-  private _updateTicker(frame: Frame) {
+  private _updateTicker(frame: Frame<number>) {
     this._ticker.text(frame.name);
   }
 
-  private _updateBars(frame: Frame, transition: any) {
-    this._bar = this._bar.data(frame.data.slice(0, this.maxDataPoints), d => d.name)
+  private _updateBars(frame: Frame<number>, transition: any) {
+    this._bar = this._bar.data(frame.frameData.slice(0, this.maxDataPoints), d => d.name)
       .join(
         enter => enter.append('rect')
           .attr('fill', d => this._color(d.name))
@@ -81,8 +81,8 @@ export class RaceBarChart extends RaceChart {
         .attr('width', d => this._xScale(d.value) - this._xScale(0)));
   }
 
-  private _updateLabels(frame: Frame, transition: any) {
-    this._label = this._label.data(frame.data.slice(0, this.maxDataPoints), d => d.name)
+  private _updateLabels(frame: Frame<number>, transition: any) {
+    this._label = this._label.data(frame.frameData.slice(0, this.maxDataPoints), d => d.name)
       .join(
         enter => enter.append('text')
           .attr('transform', (d, index) => `translate(${this._xScale(d.value)},${this._yScale(index as any)})`)

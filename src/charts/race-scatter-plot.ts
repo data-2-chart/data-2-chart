@@ -1,7 +1,6 @@
 import { customElement } from 'lit/decorators.js';
 import { RaceChart } from './race-chart.js';
-import { Frame, FrameData } from '../models/race-chart-data.js';
-import { ArcData } from '../models/arc-data.js';
+import { Frame, FrameData, ArcData } from '@data-2-chart/data-2-chart-common-ts';
 import { sum, randomNormal, easeLinear, Selection, min, arc } from 'd3';
 
 interface CircleData {
@@ -64,12 +63,12 @@ export class RaceScatterPlot extends RaceChart {
     this._circleData = Array.from({ length: this._totalCircles }, () => ({ x: 0, y: 0, name: '', noChange: false }));
   }
 
-  override updateFrame(frame: Frame) {
-    if (frame?.data?.length > 0) {
+  override updateFrame(frame: Frame<number>) {
+    if (frame?.frameData?.length > 0) {
       const transition = this.svg.transition()
         .duration(this.duration)
         .ease(easeLinear);
-      this._updateArcData(frame.data);
+      this._updateArcData(frame.frameData);
       this._updateLabels(transition);
       this._updateCircleData();
       this._updateCircles(transition);
@@ -78,7 +77,7 @@ export class RaceScatterPlot extends RaceChart {
     }
   }
 
-  private _updateTicker(frame: Frame) {
+  private _updateTicker(frame: Frame<number>) {
     this._ticker.text(frame.name);
   }
 
@@ -101,7 +100,7 @@ export class RaceScatterPlot extends RaceChart {
       const totalCircles = Math.ceil(arcData.value * reValue);
       const currentCircles = this._circleData.filter(circleObj => circleObj.name == arcData.name);
       Array.from({ length: totalCircles - currentCircles.length }, () => {
-        let freeObj = this._circleData.find(circleObj => circleObj.noChange !== true);
+        const freeObj = this._circleData.find(circleObj => circleObj.noChange !== true);
         if (freeObj) {
           freeObj.name = arcData.name;
           freeObj.x = arcData.x + random();
@@ -119,7 +118,7 @@ export class RaceScatterPlot extends RaceChart {
     });
   }
 
-  private _updateArcData(frameData: FrameData[]) {
+  private _updateArcData(frameData: FrameData<number>[]) {
     const dataPoints = frameData.sort((data1, data2) => data2?.value - data1?.value).slice(0, this.maxDataPoints);
     this._arcData.forEach(arcObj => arcObj.noChange = false);
 
@@ -133,7 +132,7 @@ export class RaceScatterPlot extends RaceChart {
     dataPoints.forEach(dataPoint => {
       const currentArc = this._arcData.find(arcObj => arcObj.name == dataPoint.name);
       if (!currentArc) {
-        let freeIndex = this._arcData.findIndex(arcObj => arcObj.noChange !== true);
+        const freeIndex = this._arcData.findIndex(arcObj => arcObj.noChange !== true);
         if (freeIndex != -1) {
           const freeObj = this._arcData[freeIndex];
           const newObj = {
