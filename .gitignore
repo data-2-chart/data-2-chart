@@ -3,6 +3,9 @@
 /test/
 /dist/
 custom-elements.json
+_site/
+resources/
+.hugo_build.lock
 # top level source
 my-element.js
 my-element.js.map
