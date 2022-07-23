@@ -50,8 +50,8 @@
   "license": "MIT",
   "dependencies": {
     "d3": "^7.6.1",
-    "lit": "^2.2.7",
-    "@data-2-chart/data-2-chart-common-ts": "0.0.41"
+    "lit": "^2.2.8",
+    "@data-2-chart/data-2-chart-common-ts": "0.0.44"
   },
   "peerDependencies": {
     "@types/d3": "^7.4.0"
@@ -65,8 +65,8 @@
     "@rollup/plugin-replace": "^4.0.0",
     "@types/d3": "^7.4.0",
     "@types/mocha": "^9.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
-    "@typescript-eslint/parser": "^5.30.5",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
     "@web/dev-server": "^0.1.32",
     "@web/dev-server-legacy": "^1.0.0",
     "@web/dev-server-rollup": "^0.3.18",
@@ -75,12 +75,12 @@
     "@web/test-runner-playwright": "^0.8.9",
     "@webcomponents/webcomponentsjs": "^2.6.0",
     "deepmerge": "^4.2.2",
-    "eslint": "^8.19.0",
+    "eslint": "^8.20.0",
     "lit-analyzer": "^1.2.1",
     "mocha": "^10.0.0",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.75.7",
+    "rollup": "^2.77.0",
     "rollup-plugin-summary": "^1.4.3",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.7.4",
