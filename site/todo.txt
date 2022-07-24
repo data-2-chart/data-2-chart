@@ -1,0 +1,1 @@
+1. fix algolia in site/layouts/partials/header.html

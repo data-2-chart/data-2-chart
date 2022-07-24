@@ -1,7 +1,7 @@
 {
   "name": "@data-2-chart/data-2-chart",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Advanced web component chart library",
   "main": "lib/index.js",
   "module": "lib/index.js",

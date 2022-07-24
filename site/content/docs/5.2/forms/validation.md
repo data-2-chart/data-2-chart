@@ -99,13 +99,7 @@ Custom feedback styles apply custom colors, borders, focus styles, and backgroun
     <button class="btn btn-primary" type="submit">Submit form</button>
   </div>
 </form>
-{{< /example >}}
 
-{{< example lang="js" show_preview="false" >}}
-{{< js.inline >}}
-{{- readFile (path.Join "site/static/docs" .Site.Params.docs_version "assets/js/validate-forms.js") -}}
-{{< /js.inline >}}
-{{< /example >}}
 
 ## Browser defaults
 

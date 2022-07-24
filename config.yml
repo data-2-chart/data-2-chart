@@ -1,6 +1,6 @@
 languageCode:           "en"
-title:                  "Bootstrap"
-baseURL:                "https://getbootstrap.com"
+title:                  "Data2Chart"
+baseURL:                "https://data2chart.com"
 
 security:
   enableInlineShortcodes: true
@@ -31,7 +31,7 @@ publishDir:             "_site"
 module:
   mounts:
     - source:           node_modules/bootstrap/dist
-      target:           static/docs/5.2/dist
+      target:           static/bootstrap/dist
     - source:           site/assets
       target:           assets
     - source:           site/content
@@ -48,14 +48,14 @@ module:
       target:           static/favicon.ico
 
 params:
-  description:          "The most popular HTML, CSS, and JS library in the world."
-  authors:              "Mark Otto, Jacob Thornton, and Bootstrap contributors"
+  description:          "The most advanced web component chat library in the world."
+  authors:              "Sathya Vikram Chekuri"
+  current_version:      "0.0.5"
+
+  docs_version:         "5.2"
   social_image_path:    /docs/5.2/assets/brand/bootstrap-social.png
   social_logo_path:     /docs/5.2/assets/brand/bootstrap-social-logo.png
-
-  current_version:      "5.2.0"
-  current_ruby_version: "5.2.0"
-  docs_version:         "5.2"
+  current_ruby_version: "0.0.5"
   rfs_version:          "v9.0.6"
   github_org:           "https://github.com/twbs"
   repo:                 "https://github.com/twbs/bootstrap"
