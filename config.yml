@@ -42,9 +42,9 @@ module:
       target:           layouts
     - source:           site/static
       target:           static
-    - source:           site/static/docs/5.2/assets/img/favicons/apple-touch-icon.png
+    - source:           site/static/docs/assets/img/favicons/apple-touch-icon.png
       target:           static/apple-touch-icon.png
-    - source:           site/static/docs/5.2/assets/img/favicons/favicon.ico
+    - source:           site/static/docs/assets/img/favicons/favicon.ico
       target:           static/favicon.ico
 
 params:

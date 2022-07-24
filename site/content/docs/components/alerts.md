@@ -165,8 +165,6 @@ When an alert is dismissed, the element is completely removed from the page stru
 
 ### Variables
 
-{{< added-in "5.2.0" >}}
-
 As part of Bootstrap's evolving CSS variables approach, alerts now use local CSS variables on `.alert` for enhanced real-time customization. Values for the CSS variables are set via Sass, so Sass customization is still supported, too.
 
 {{< scss-docs name="alert-css-vars" file="scss/_alert.scss" >}}
