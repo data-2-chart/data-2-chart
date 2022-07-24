@@ -100,8 +100,7 @@ bootstrap/
 ├── site/
 │   └──content/
 │      └── docs/
-│          └── {{< param docs_version >}}/
-│              └── examples/
+│          └── examples/
 ├── js/
 └── scss/
 ```

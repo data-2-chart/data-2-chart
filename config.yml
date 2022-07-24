@@ -52,7 +52,6 @@ params:
   authors:              "Sathya Vikram Chekuri"
   current_version:      "0.0.5"
 
-  docs_version:         "5.2"
   social_image_path:    /docs/5.2/assets/brand/bootstrap-social.png
   social_logo_path:     /docs/5.2/assets/brand/bootstrap-social-logo.png
   current_ruby_version: "0.0.5"
